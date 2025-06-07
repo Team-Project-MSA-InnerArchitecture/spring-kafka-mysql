@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim as build
 WORKDIR /app
 
 # Copy the build artifacts from your local system to the container
-COPY target/*.jar app.jar
+COPY build/libs/*.jar app.jar
 
 # Expose the application port (e.g., 8080)
 EXPOSE 8080
