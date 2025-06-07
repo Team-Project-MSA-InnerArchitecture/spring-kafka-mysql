@@ -11,7 +11,7 @@ services:
     networks:
       - app-network  # 네트워크 설정 추가
 
-  db:
+  mysql-container:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: admin    # MySQL root 사용자 비밀번호 설정
