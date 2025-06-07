@@ -1,0 +1,20 @@
+# .gitignore
+# Docker build files
+*.log
+*.tmp
+*.bak
+
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA
+.id
+
+# OS files
+.DS_Store
+
+# Java artifacts
+*.jar
+*.war
+*.ear
