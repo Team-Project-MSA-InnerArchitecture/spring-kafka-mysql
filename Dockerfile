@@ -1,14 +1,11 @@
-# Use a base image with Java installed
-FROM openjdk:17-jdk-slim as build
-
-# Set the working directory inside the container
+# 1단계: 빌드용 스테이지
+FROM gradle:8.2.1-jdk17 AS builder
 WORKDIR /app
+COPY . .
+RUN gradle bootJar --no-daemon
 
-# Copy the build artifacts from your local system to the container
-COPY build/libs/*.jar app.jar
-
-# Expose the application port (e.g., 8080)
-EXPOSE 8080
-
-# Command to run the application
+# 2단계: 실행용 스테이지
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

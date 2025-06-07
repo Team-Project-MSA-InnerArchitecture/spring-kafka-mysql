@@ -7,7 +7,9 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=default   # 애플리케이션 프로필을 prod로 설정
     depends_on:
-      - db  # db 컨테이너가 실행된 후에만 app이 실행되도록 설정
+      #- mysql-container  # db 컨테이너가 실행된 후에만 app이 실행되도록 설정
+      mysql-container:
+        condition: service_healthy
     networks:
       - app-network  # 네트워크 설정 추가
 
@@ -20,6 +22,11 @@ services:
       - "3306:3306"  # MySQL의 기본 포트 3306을 호스트의 3306 포트로 매핑
     networks:
       - app-network  # 네트워크 설정 추가
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 networks:
   app-network:
